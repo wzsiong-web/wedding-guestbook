@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding Guestbook</title>
+  <style>
+    :root {
+      --bg-color: #fcfbfa;
+      --card-bg: #ffffff;
+      --accent: #8a735c;
+      --accent-hover: #6e5a46;
+      --text-main: #2c2c2c;
+      --text-muted: #666666;
+      --border: #e8e3dd;
+      --success: #4a7c59;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background-color: var(--bg-color); color: var(--text-main); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+    .container { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); max-width: 480px; width: 100%; padding: 32px 24px; text-align: center; }
+    .header h1 { font-family: Georgia, serif; font-size: 28px; font-weight: normal; color: var(--accent); margin-bottom: 6px; }
+    .header p { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+    .form-group { text-align: left; margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 6px; }
+    .form-group input[type="text"], .form-group input[type="password"], .form-group textarea { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 15px; background: #fafaf9; }
+    .file-dropzone { border: 2px dashed var(--border); border-radius: 8px; padding: 20px; text-align: center; background: #fafaf9; cursor: pointer; position: relative; }
+    .file-dropzone input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+    .file-name-preview { margin-top: 8px; font-size: 13px; color: var(--accent); font-weight: 600; word-break: break-all; }
+    button.btn-submit { width: 100%; padding: 14px; background: var(--accent); color: #ffffff; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+    button.btn-submit:hover { background: var(--accent-hover); }
+    .status-msg { margin-top: 16px; font-size: 14px; display: none; }
+    .status-msg.success { color: var(--success); display: block; }
+    .status-msg.error { color: #d32f2f; display: block; }
+    #guestbookApp { display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Password Screen -->
+  <div class="container" id="passwordScreen">
+    <div class="header">
+      <h1>Wedding Guestbook</h1>
+      <p>Enter the guest code to access</p>
+    </div>
+    <form id="passForm">
+      <div class="form-group">
+        <label for="passcode">Guest Passcode</label>
+        <input type="password" id="passcode" placeholder="Enter code" required>
+      </div>
+      <button type="submit" class="btn-submit">Enter</button>
+      <div id="passError" class="status-msg error" style="display:none; margin-top:12px;">Incorrect passcode. Try again!</div>
+    </form>
+  </div>
+
+  <!-- Guestbook Form Screen -->
+  <div class="container" id="guestbookApp">
+    <div class="header">
+      <h1>Share Your Wishes</h1>
+      <p>22 November 2026</p>
+    </div>
+
+    <form id="weddingForm">
+      <div class="form-group">
+        <label for="guestName">Your Name</label>
+        <input type="text" id="guestName" placeholder="e.g. John & Sarah" required>
+      </div>
+
+      <div class="form-group">
+        <label for="guestWish">Warm Wishes / Message</label>
+        <textarea id="guestWish" rows="4" placeholder="Leave your message for the newlyweds..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Photo or Video (Optional)</label>
+        <div class="file-dropzone">
+          <p id="dropzoneText">Tap to select photo or video</p>
+          <input type="file" id="mediaFile" accept="image/*,video/*">
+        </div>
+        <div id="fileNamePreview" class="file-name-preview"></div>
+      </div>
+
+      <button type="submit" id="submitBtn" class="btn-submit">Send Wish</button>
+      <div id="statusMsg" class="status-msg"></div>
+    </form>
+  </div>
+
+  <script>
+    // SET YOUR GUEST PASSCODE HERE:
+    const GUEST_PASSCODE = "2026"; 
+
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwln27TTNJ8Aj4WkhQAlI6LrYlMLixH2dG213V-v6mbf1Mxu7u70tQubs6ruJ7G4TBO/exec";
+
+    // Passcode Handling
+    document.getElementById('passForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const input = document.getElementById('passcode').value;
+      if (input === GUEST_PASSCODE) {
+        document.getElementById('passwordScreen').style.display = 'none';
+        document.getElementById('guestbookApp').style.display = 'block';
+      } else {
+        document.getElementById('passError').style.display = 'block';
+      }
+    });
+
+    // Form & Upload Handling
+    const mediaFileInput = document.getElementById('mediaFile');
+    const fileNamePreview = document.getElementById('fileNamePreview');
+    const dropzoneText = document.getElementById('dropzoneText');
+    const form = document.getElementById('weddingForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const statusMsg = document.getElementById('statusMsg');
+
+    mediaFileInput.addEventListener('change', function() {
+      if (this.files && this.files[0]) {
+        fileNamePreview.textContent = "Selected: " + this.files[0].name;
+        dropzoneText.textContent = "Change selected file";
+      } else {
+        fileNamePreview.textContent = "";
+        dropzoneText.textContent = "Tap to select photo or video";
+      }
+    });
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Uploading...";
+      statusMsg.className = "status-msg";
+      statusMsg.textContent = "";
+
+      const name = document.getElementById('guestName').value;
+      const wish = document.getElementById('guestWish').value;
+      const file = mediaFileInput.files[0];
+
+      let payload = { name: name, wish: wish };
+
+      if (file) {
+        try {
+          payload.fileName = file.name;
+          payload.mimeType = file.type;
+          payload.fileData = await readFileAsBase64(file);
+        } catch (err) {
+          showStatus("Error reading file. Please try again.", false);
+          resetBtn();
+          return;
+        }
+      }
+
+      try {
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        showStatus("Thank you! Your wish and media have been uploaded.", true);
+        form.reset();
+        fileNamePreview.textContent = "";
+        dropzoneText.textContent = "Tap to select photo or video";
+      } catch (err) {
+        showStatus("Upload failed. Please try again.", false);
+      } finally {
+        resetBtn();
+      }
+    });
+
+    function readFileAsBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function showStatus(msg, isSuccess) {
+      statusMsg.textContent = msg;
+      statusMsg.className = "status-msg " + (isSuccess ? "success" : "error");
+    }
+
+    function resetBtn() {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send Wish";
+    }
+  </script>
+</body>
+</html>
