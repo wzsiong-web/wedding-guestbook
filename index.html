@@ -41,7 +41,7 @@
   <div class="container" id="passwordScreen">
     <div class="header">
       <h1>Wedding Guestbook</h1>
-      <p>Enter the guest code to access</p>
+      <p>Enter guest passcode to continue</p>
     </div>
     <form id="passForm">
       <div class="form-group">
@@ -49,11 +49,11 @@
         <input type="password" id="passcode" placeholder="Enter code" required>
       </div>
       <button type="submit" class="btn-submit">Enter</button>
-      <div id="passError" class="status-msg error" style="display:none; margin-top:12px;">Incorrect passcode. Try again!</div>
+      <div id="passError" class="status-msg error" style="display:none; margin-top:12px;">Incorrect passcode. Please try again.</div>
     </form>
   </div>
 
-  <!-- Guestbook Form Screen -->
+  <!-- Guestbook Upload Screen -->
   <div class="container" id="guestbookApp">
     <div class="header">
       <h1>Share Your Wishes</h1>
@@ -86,16 +86,12 @@
   </div>
 
   <script>
-    // SET YOUR GUEST PASSCODE HERE:
     const GUEST_PASSCODE = "2026"; 
-
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwln27TTNJ8Aj4WkhQAlI6LrYlMLixH2dG213V-v6mbf1Mxu7u70tQubs6ruJ7G4TBO/exec";
 
-    // Passcode Handling
     document.getElementById('passForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const input = document.getElementById('passcode').value;
-      if (input === GUEST_PASSCODE) {
+      if (document.getElementById('passcode').value === GUEST_PASSCODE) {
         document.getElementById('passwordScreen').style.display = 'none';
         document.getElementById('guestbookApp').style.display = 'block';
       } else {
@@ -103,7 +99,6 @@
       }
     });
 
-    // Form & Upload Handling
     const mediaFileInput = document.getElementById('mediaFile');
     const fileNamePreview = document.getElementById('fileNamePreview');
     const dropzoneText = document.getElementById('dropzoneText');
