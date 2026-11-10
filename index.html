@@ -98,7 +98,7 @@
     mediaFileInput.addEventListener('change', function() {
       if (this.files && this.files.length > 0) {
         fileNamePreview.textContent = `Selected (${this.files.length} file${this.files.length > 1 ? 's' : ''}): ` + Array.from(this.files).map(f => f.name).join(', ');
-        dropzoneText.textContent = "Change selected files";
+        dropzoneText.textContent = "Tap to continue to selecr photos or videos";
       } else {
         fileNamePreview.textContent = "";
         dropzoneText.textContent = "Tap to select photos or videos";
