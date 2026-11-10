@@ -3,203 +3,617 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hui Wen & Zun Siong Wedding Guestbook</title>
+  <title>Huiwen & Zun Siong | Wedding Guestbook</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
   <style>
     :root {
-      --bg-color: #fcfbfa;
-      --card-bg: #ffffff;
-      --accent: #8a735c;
-      --accent-hover: #6e5a46;
-      --text-main: #2c2c2c;
-      --text-muted: #666666;
-      --border: #e8e3dd;
-      --success: #4a7c59;
+      --bg-cream: #FDFBF7;
+      --card-bg: rgba(255, 255, 255, 0.92);
+      --text-main: #3C3633;
+      --text-muted: #7A726C;
+      --sage-accent: #6E7E65;
+      --sage-light: #F0F3EE;
+      --gold-accent: #C5A059;
+      --gold-hover: #B28E46;
+      --rose-subtle: #F9EFEF;
+      --border-light: #EBE5DF;
+      --shadow-soft: 0 10px 30px rgba(60, 54, 51, 0.05);
+      --shadow-hover: 0 15px 35px rgba(60, 54, 51, 0.08);
+      --radius-lg: 18px;
+      --radius-sm: 10px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-    body { background-color: var(--bg-color); color: var(--text-main); display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 24px 16px; }
-    .container { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); max-width: 500px; width: 100%; padding: 32px 24px; text-align: center; }
-    .header h1 { font-family: Georgia, serif; font-size: 26px; font-weight: normal; color: var(--accent); margin-bottom: 6px; }
-    .header p { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
-    .form-group { text-align: left; margin-bottom: 18px; }
-    .form-group label { display: block; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 6px; }
-    .form-group input[type="text"], .form-group textarea { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 15px; background: #fafaf9; }
-    .file-dropzone { border: 2px dashed var(--border); border-radius: 8px; padding: 20px; text-align: center; background: #fafaf9; cursor: pointer; position: relative; }
-    .file-dropzone input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
-    .file-name-preview { margin-top: 8px; font-size: 13px; color: var(--accent); font-weight: 600; word-break: break-all; }
-    button.btn-submit { width: 100%; padding: 14px; background: var(--accent); color: #ffffff; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 10px; }
-    button.btn-submit:hover { background: var(--accent-hover); }
-    .status-msg { margin-top: 16px; font-size: 14px; display: none; }
-    .status-msg.success { color: var(--success); display: block; }
-    .status-msg.error { color: #d32f2f; display: block; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-cream);
+      color: var(--text-main);
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(240, 243, 238, 0.6) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(249, 239, 239, 0.6) 0%, transparent 40%);
+      background-attachment: fixed;
+      padding: 30px 16px 60px;
+    }
 
-    /* Guest Wishes Feed */
-    .feed-section { margin-top: 32px; border-top: 1px dashed var(--border); padding-top: 24px; text-align: left; }
-    .feed-title { font-family: Georgia, serif; font-size: 20px; color: var(--accent); margin-bottom: 16px; text-align: center; }
-    .wish-card { background: #fafaf9; border: 1px solid var(--border); border-radius: 10px; padding: 14px; margin-bottom: 12px; }
-    .wish-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-    .wish-author { font-weight: 600; font-size: 14px; color: var(--accent); }
-    .wish-time { font-size: 11px; color: var(--text-muted); }
-    .wish-text { font-size: 14px; color: var(--text-main); line-height: 1.4; white-space: pre-wrap; }
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 36px;
+      padding: 20px 0;
+    }
+
+    .subtitle-script {
+      font-family: 'Alex Brush', cursive;
+      font-size: 2.4rem;
+      color: var(--gold-accent);
+      margin-bottom: -10px;
+      display: block;
+    }
+
+    .main-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--text-main);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .wedding-details {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      background-color: var(--gold-accent);
+      border-radius: 50%;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 32px;
+    }
+
+    .card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 12px 16px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+    }
+
+    input[type="text"]:focus, textarea:focus {
+      outline: none;
+      border-color: var(--gold-accent);
+      box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
+      background: #fff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .file-upload-wrapper {
+      position: relative;
+      border: 2px dashed var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 18px;
+      text-align: center;
+      background: rgba(240, 243, 238, 0.3);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .file-upload-wrapper:hover {
+      border-color: var(--sage-accent);
+      background: var(--sage-light);
+    }
+
+    .file-upload-input {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .file-upload-label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .file-upload-label svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--sage-accent);
+    }
+
+    .image-preview-container {
+      display: none;
+      margin-top: 12px;
+      position: relative;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      max-height: 200px;
+    }
+
+    .image-preview-container img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .remove-img-btn {
+      position: absolute;
+      top: 8px; right: 8px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      border: none;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 14px 24px;
+      background: var(--gold-accent);
+      color: #FFF;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.1s ease;
+      margin-top: 10px;
+    }
+
+    .btn-submit:hover {
+      background: var(--gold-hover);
+    }
+
+    .btn-submit:disabled {
+      background: #D5CCC1;
+      cursor: not-allowed;
+    }
+
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid var(--border-light);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn.active {
+      background: var(--sage-accent);
+      color: #FFF;
+      border-color: var(--sage-accent);
+    }
+
+    .wishes-feed {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .wish-card {
+      background: #FFF;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: 0 4px 15px rgba(60, 54, 51, 0.03);
+    }
+
+    .wish-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .author-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .wish-time {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .wish-text {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    .wish-photo {
+      margin-top: 14px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      max-height: 350px;
+      cursor: pointer;
+    }
+
+    .wish-photo img {
+      width: 100%;
+      height: 100%;
+      max-height: 350px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .wish-photo img:hover {
+      transform: scale(1.02);
+    }
+
+    #statusMessage {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      text-align: center;
+      min-height: 20px;
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px; right: 20px;
+      color: #fff;
+      font-size: 30px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <div class="header">
-      <h1>Hui Wen & Zun Siong</h1>
-      <p>Share Your Wishes & Memories | 22 Nov 2026</p>
+    <header class="header">
+      <span class="subtitle-script">Warmest Wishes for</span>
+      <h1 class="main-title">Huiwen & Zun Siong</h1>
+      <div class="wedding-details">
+        <span>22 November 2026</span>
+        <span class="dot"></span>
+        <span>The Alkaff Mansion</span>
+      </div>
+    </header>
+
+    <!-- Submission Form -->
+    <div class="card">
+      <h2 class="card-title">Leave Your Message</h2>
+      
+      <form id="guestbookForm">
+        <div class="form-group">
+          <label for="guestName">Your Name(s)</label>
+          <input type="text" id="guestName" placeholder="e.g. Auntie Mary & Family" required />
+        </div>
+
+        <div class="form-group">
+          <label for="guestMessage">Your Wishes</label>
+          <textarea id="guestMessage" placeholder="Write your heartfelt note or memory here..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Share a Snapshot (Optional)</label>
+          <div class="file-upload-wrapper">
+            <input type="file" id="guestPhoto" class="file-upload-input" accept="image/*" />
+            <div class="file-upload-label" id="uploadLabel">
+              <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+              <span>Choose a photo to upload</span>
+            </div>
+          </div>
+          <div class="image-preview-container" id="previewContainer">
+            <img id="imagePreview" src="" alt="Photo preview" />
+            <button type="button" class="remove-img-btn" id="removeImgBtn">&times;</button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit" id="submitBtn">Send Wishes & Photos</button>
+      </form>
+      <div id="statusMessage"></div>
     </div>
 
-    <!-- Upload Form -->
-    <form id="weddingForm">
-      <div class="form-group">
-        <label for="guestName">Your Name(s)</label>
-        <input type="text" id="guestName" placeholder="e.g. Alex & Sarah" required>
-      </div>
-
-      <div class="form-group">
-        <label for="guestWish">Warm Wishes / Message</label>
-        <textarea id="guestWish" rows="3" placeholder="Leave a message for the couple..."></textarea>
-      </div>
-
-      <div class="form-group">
-        <label>Photos / Videos (Multiple allowed)</label>
-        <div class="file-dropzone">
-          <p id="dropzoneText">Tap to select photos or videos</p>
-          <input type="file" id="mediaFile" accept="image/*,video/*" multiple>
+    <!-- Wishes Feed Container -->
+    <div class="card">
+      <div class="card-title">
+        <span>Guestbook Timeline</span>
+        <div class="filter-bar">
+          <button class="filter-btn active" onclick="filterEntries('all', this)">All</button>
+          <button class="filter-btn" onclick="filterEntries('photos', this)">With Photos</button>
         </div>
-        <div id="fileNamePreview" class="file-name-preview"></div>
       </div>
 
-      <button type="submit" id="submitBtn" class="btn-submit">Send Wish</button>
-      <div id="statusMsg" class="status-msg"></div>
-    </form>
-
-    <!-- Public Wishes Feed -->
-    <div class="feed-section">
-      <h2 class="feed-title">Guestbook Messages</h2>
-      <div id="wishesFeed">Loading messages...</div>
+      <div class="wishes-feed" id="wishesFeed">
+        <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">Loading guestbook entries...</p>
+      </div>
     </div>
   </div>
 
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightboxImg" src="" alt="Enlarged photo" />
+  </div>
+
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzXT1U4B9fPFpmC-M3VmtNvAa-lpeTpEXVl03mkWPUxYN-70BY4FVXYpKK9ebdSlDGc/exec";
+    // Your Apps Script Web App URL
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw1LRiWcimvwj4Iobidd2KlZgPltvlICgA_Xba_J94uuLTIDHWkFj-n6SXMf2ZV6IZ9lQ/exec";
 
-    const mediaFileInput = document.getElementById('mediaFile');
-    const fileNamePreview = document.getElementById('fileNamePreview');
-    const dropzoneText = document.getElementById('dropzoneText');
-    const form = document.getElementById('weddingForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const statusMsg = document.getElementById('statusMsg');
+    let allEntries = [];
 
-    window.addEventListener('DOMContentLoaded', loadWishes);
+    // Image preview handling
+    const fileInput = document.getElementById('guestPhoto');
+    const previewContainer = document.getElementById('previewContainer');
+    const imagePreview = document.getElementById('imagePreview');
+    const removeImgBtn = document.getElementById('removeImgBtn');
+    const uploadLabel = document.getElementById('uploadLabel');
 
-    mediaFileInput.addEventListener('change', function() {
-      if (this.files && this.files.length > 0) {
-        fileNamePreview.textContent = `Selected (${this.files.length} file${this.files.length > 1 ? 's' : ''}): ` + Array.from(this.files).map(f => f.name).join(', ');
-        dropzoneText.textContent = "Tap to continue to selecr photos or videos";
-      } else {
-        fileNamePreview.textContent = "";
-        dropzoneText.textContent = "Tap to select photos or videos";
-      }
-    });
-
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Uploading...";
-      statusMsg.className = "status-msg";
-      statusMsg.textContent = "";
-
-      const name = document.getElementById('guestName').value;
-      const wish = document.getElementById('guestWish').value;
-      const files = mediaFileInput.files;
-
-      let payload = { name: name, wish: wish, files: [] };
-
-      if (files.length > 0) {
-        try {
-          for (let i = 0; i < files.length; i++) {
-            const base64 = await readFileAsBase64(files[i]);
-            payload.files.push({
-              fileName: files[i].name,
-              mimeType: files[i].type,
-              fileData: base64
-            });
-          }
-        } catch (err) {
-          showStatus("Error reading files. Please try again.", false);
-          resetBtn();
-          return;
-        }
-      }
-
-      try {
-        await fetch(SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-
-        showStatus("Thank you! Your wish has been posted.", true);
-        form.reset();
-        fileNamePreview.textContent = "";
-        dropzoneText.textContent = "Tap to select photos or videos";
-        setTimeout(loadWishes, 2000);
-      } catch (err) {
-        showStatus("Upload failed. Please try again.", false);
-      } finally {
-        resetBtn();
-      }
-    });
-
-    async function loadWishes() {
-      const feed = document.getElementById('wishesFeed');
-      try {
-        const res = await fetch(SCRIPT_URL);
-        const data = await res.json();
-        if (data && data.length > 0) {
-          feed.innerHTML = data.map(item => `
-            <div class="wish-card">
-              <div class="wish-header">
-                <span class="wish-author">${escapeHtml(item.name || 'Anonymous')}</span>
-                <span class="wish-time">${escapeHtml(item.timestamp || '')}</span>
-              </div>
-              <div class="wish-text">${escapeHtml(item.wish || '')}</div>
-            </div>
-          `).join('');
-        } else {
-          feed.innerHTML = '<p style="text-align:center; color:#888; font-size:14px;">Be the first to leave a wish!</p>';
-        }
-      } catch (e) {
-        feed.innerHTML = '<p style="text-align:center; color:#888; font-size:14px;">Unable to load messages.</p>';
-      }
-    }
-
-    function escapeHtml(str) {
-      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-    }
-
-    function readFileAsBase64(file) {
-      return new Promise((resolve, reject) => {
+    fileInput.addEventListener('change', function() {
+      const file = this.files[0];
+      if (file) {
         const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
+        reader.onload = function(e) {
+          imagePreview.src = e.target.result;
+          previewContainer.style.display = 'block';
+          uploadLabel.innerHTML = `<span>Change selected photo</span>`;
+        };
         reader.readAsDataURL(file);
+      }
+    });
+
+    removeImgBtn.addEventListener('click', function() {
+      fileInput.value = '';
+      imagePreview.src = '';
+      previewContainer.style.display = 'none';
+      uploadLabel.innerHTML = `<svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg><span>Choose a photo to upload</span>`;
+    });
+
+    // Client-side image compression helper (keeps payload fast under Apps Script limits)
+    function compressImage(file, maxWidth = 1200, quality = 0.75) {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (e) => {
+          const img = new Image();
+          img.src = e.target.result;
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            let width = img.width;
+            let height = img.height;
+
+            if (width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            resolve(canvas.toDataURL('image/jpeg', quality));
+          };
+        };
       });
     }
 
-    function showStatus(msg, isSuccess) {
-      statusMsg.textContent = msg;
-      statusMsg.className = "status-msg " + (isSuccess ? "success" : "error");
+    // Form submission
+    document.getElementById('guestbookForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submitBtn');
+      const statusMessage = document.getElementById('statusMessage');
+      
+      const name = document.getElementById('guestName').value.trim();
+      const message = document.getElementById('guestMessage').value.trim();
+      const photoFile = fileInput.files[0];
+
+      submitBtn.disabled = true;
+      statusMessage.style.color = "var(--text-muted)";
+      statusMessage.innerText = "Submitting your message and uploading photo...";
+
+      let photoBase64 = "";
+      let photoName = "";
+
+      if (photoFile) {
+        photoName = photoFile.name;
+        photoBase64 = await compressImage(photoFile, 1200, 0.75);
+      }
+
+      const payload = { name, message, photoBase64, photoName };
+
+      try {
+        const response = await fetch(SCRIPT_URL, {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+        
+        const res = await response.json();
+
+        if (res.status === "success") {
+          statusMessage.style.color = "var(--sage-accent)";
+          statusMessage.innerText = "Thank you! Your wish has been posted.";
+          
+          document.getElementById('guestbookForm').reset();
+          removeImgBtn.click();
+          
+          // Refresh list from server
+          fetchWishes();
+        } else {
+          statusMessage.style.color = "red";
+          statusMessage.innerText = "Failed to post. Please try again.";
+        }
+      } catch (err) {
+        statusMessage.style.color = "red";
+        statusMessage.innerText = "Error sending message. Please try again.";
+        console.error(err);
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+
+    // Fetch entries from Google Apps Script
+    async function fetchWishes() {
+      const feed = document.getElementById('wishesFeed');
+      try {
+        const response = await fetch(SCRIPT_URL);
+        const res = await response.json();
+        
+        if (res.status === "success" && res.data) {
+          allEntries = res.data;
+          renderEntries(allEntries);
+        } else {
+          feed.innerHTML = `<p style="text-align: center; color: var(--text-muted);">No entries yet. Be the first to leave a wish!</p>`;
+        }
+      } catch (err) {
+        console.error(err);
+        feed.innerHTML = `<p style="text-align: center; color: red;">Unable to load guest wishes right now.</p>`;
+      }
     }
 
-    function resetBtn() {
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Send Wish";
+    function renderEntries(entries) {
+      const feed = document.getElementById('wishesFeed');
+      
+      if (entries.length === 0) {
+        feed.innerHTML = `<p style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">No wishes found in this view.</p>`;
+        return;
+      }
+
+      feed.innerHTML = entries.map(item => `
+        <div class="wish-card">
+          <div class="wish-header">
+            <span class="author-name">${escapeHtml(item.name)}</span>
+            <span class="wish-time">${item.timestamp ? new Date(item.timestamp).toLocaleDateString() : ''}</span>
+          </div>
+          <div class="wish-text">${escapeHtml(item.message)}</div>
+          ${item.photoUrl ? `
+            <div class="wish-photo" onclick="openLightbox('${item.photoUrl}')">
+              <img src="${item.photoUrl}" alt="Guest photo" loading="lazy" />
+            </div>
+          ` : ''}
+        </div>
+      `).join('');
     }
+
+    function filterEntries(type, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      if (type === 'photos') {
+        renderEntries(allEntries.filter(e => e.photoUrl && e.photoUrl !== ""));
+      } else {
+        renderEntries(allEntries);
+      }
+    }
+
+    function openLightbox(url) {
+      document.getElementById('lightboxImg').src = url;
+      document.getElementById('lightbox').style.display = 'flex';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
+    }
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    // Load initial wishes on page launch
+    fetchWishes();
   </script>
 </body>
 </html>
