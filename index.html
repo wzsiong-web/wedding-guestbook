@@ -1,433 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Huiwen & Zun Siong | Wedding Guestbook</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --bg-cream: #FDFBF7;
-      --card-bg: rgba(255, 255, 255, 0.92);
-      --text-main: #3C3633;
-      --text-muted: #7A726C;
-      --sage-accent: #6E7E65;
-      --sage-light: #F0F3EE;
-      --gold-accent: #C5A059;
-      --gold-hover: #B28E46;
-      --rose-subtle: #F9EFEF;
-      --border-light: #EBE5DF;
-      --shadow-soft: 0 10px 30px rgba(60, 54, 51, 0.05);
-      --shadow-hover: 0 15px 35px rgba(60, 54, 51, 0.08);
-      --radius-lg: 18px;
-      --radius-sm: 10px;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: var(--bg-cream);
-      color: var(--text-main);
-      line-height: 1.6;
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(240, 243, 238, 0.6) 0%, transparent 40%),
-        radial-gradient(circle at 90% 80%, rgba(249, 239, 239, 0.6) 0%, transparent 40%);
-      background-attachment: fixed;
-      padding: 30px 16px 60px;
-    }
-
-    .container {
-      max-width: 680px;
-      margin: 0 auto;
-    }
-
-    .header {
-      text-align: center;
-      margin-bottom: 36px;
-      padding: 20px 0;
-    }
-
-    .subtitle-script {
-      font-family: 'Alex Brush', cursive;
-      font-size: 2.4rem;
-      color: var(--gold-accent);
-      margin-bottom: -10px;
-      display: block;
-    }
-
-    .main-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      color: var(--text-main);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-    }
-
-    .wedding-details {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.15rem;
-      font-style: italic;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .dot {
-      display: inline-block;
-      width: 4px;
-      height: 4px;
-      background-color: var(--gold-accent);
-      border-radius: 50%;
-    }
-
-    .card {
-      background: var(--card-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-lg);
-      padding: 30px;
-      box-shadow: var(--shadow-soft);
-      margin-bottom: 32px;
-    }
-
-    .card-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem;
-      font-weight: 600;
-      color: var(--text-main);
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .form-group {
-      margin-bottom: 18px;
-    }
-
-    label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-
-    input[type="text"], textarea {
-      width: 100%;
-      padding: 12px 16px;
-      font-family: inherit;
-      font-size: 0.95rem;
-      color: var(--text-main);
-      background: rgba(255, 255, 255, 0.8);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-sm);
-      transition: all 0.2s ease;
-    }
-
-    input[type="text"]:focus, textarea:focus {
-      outline: none;
-      border-color: var(--gold-accent);
-      box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
-      background: #fff;
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
-
-    .file-upload-wrapper {
-      position: relative;
-      border: 2px dashed var(--border-light);
-      border-radius: var(--radius-sm);
-      padding: 18px;
-      text-align: center;
-      background: rgba(240, 243, 238, 0.3);
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .file-upload-wrapper:hover {
-      border-color: var(--sage-accent);
-      background: var(--sage-light);
-    }
-
-    .file-upload-input {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      opacity: 0;
-      cursor: pointer;
-    }
-
-    .file-upload-label {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .file-upload-label svg {
-      width: 20px;
-      height: 20px;
-      fill: var(--sage-accent);
-    }
-
-    .image-preview-container {
-      display: none;
-      margin-top: 12px;
-      position: relative;
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      max-height: 200px;
-    }
-
-    .image-preview-container img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .remove-img-btn {
-      position: absolute;
-      top: 8px; right: 8px;
-      background: rgba(0, 0, 0, 0.6);
-      color: #fff;
-      border: none;
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 14px;
-      display: flex; align-items: center; justify-content: center;
-    }
-
-    .btn-submit {
-      width: 100%;
-      padding: 14px 24px;
-      background: var(--gold-accent);
-      color: #FFF;
-      border: none;
-      border-radius: var(--radius-sm);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.2s ease, transform 0.1s ease;
-      margin-top: 10px;
-    }
-
-    .btn-submit:hover {
-      background: var(--gold-hover);
-    }
-
-    .btn-submit:disabled {
-      background: #D5CCC1;
-      cursor: not-allowed;
-    }
-
-    .filter-bar {
-      display: flex;
-      gap: 8px;
-    }
-
-    .filter-btn {
-      background: transparent;
-      border: 1px solid var(--border-light);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .filter-btn.active {
-      background: var(--sage-accent);
-      color: #FFF;
-      border-color: var(--sage-accent);
-    }
-
-    .wishes-feed {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .wish-card {
-      background: #FFF;
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-lg);
-      padding: 22px;
-      box-shadow: 0 4px 15px rgba(60, 54, 51, 0.03);
-    }
-
-    .wish-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-
-    .author-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: var(--text-main);
-    }
-
-    .wish-time {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    .wish-text {
-      font-size: 0.95rem;
-      color: var(--text-main);
-      line-height: 1.6;
-      white-space: pre-wrap;
-    }
-
-    .wish-photo {
-      margin-top: 14px;
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      max-height: 350px;
-      cursor: pointer;
-    }
-
-    .wish-photo img {
-      width: 100%;
-      height: 100%;
-      max-height: 350px;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.3s ease;
-    }
-
-    .wish-photo img:hover {
-      transform: scale(1.02);
-    }
-
-    #statusMessage {
-      margin-top: 10px;
-      font-size: 0.85rem;
-      text-align: center;
-      min-height: 20px;
-    }
-
-    .lightbox {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 8px;
-    }
-
-    .lightbox-close {
-      position: absolute;
-      top: 20px; right: 20px;
-      color: #fff;
-      font-size: 30px;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="container">
-    <header class="header">
-      <span class="subtitle-script">Warmest Wishes for</span>
-      <h1 class="main-title">Huiwen & Zun Siong</h1>
-      <div class="wedding-details">
-        <span>22 November 2026</span>
-        <span class="dot"></span>
-        <span>The Alkaff Mansion</span>
-      </div>
-    </header>
-
-    <!-- Submission Form -->
-    <div class="card">
-      <h2 class="card-title">Leave Your Message</h2>
-      
-      <form id="guestbookForm">
-        <div class="form-group">
-          <label for="guestName">Your Name(s)</label>
-          <input type="text" id="guestName" placeholder="e.g. Auntie Mary & Family" required />
-        </div>
-
-        <div class="form-group">
-          <label for="guestMessage">Your Wishes</label>
-          <textarea id="guestMessage" placeholder="Write your heartfelt note or memory here..." required></textarea>
-        </div>
-
-        <div class="form-group">
-          <label>Share a Snapshot (Optional)</label>
-          <div class="file-upload-wrapper">
-            <input type="file" id="guestPhoto" class="file-upload-input" accept="image/*" />
-            <div class="file-upload-label" id="uploadLabel">
-              <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-              <span>Choose a photo to upload</span>
-            </div>
-          </div>
-          <div class="image-preview-container" id="previewContainer">
-            <img id="imagePreview" src="" alt="Photo preview" />
-            <button type="button" class="remove-img-btn" id="removeImgBtn">&times;</button>
-          </div>
-        </div>
-
-        <button type="submit" class="btn-submit" id="submitBtn">Send Wishes & Photos</button>
-      </form>
-      <div id="statusMessage"></div>
-    </div>
-
-    <!-- Wishes Feed Container -->
-    <div class="card">
-      <div class="card-title">
-        <span>Guestbook Timeline</span>
-        <div class="filter-bar">
-          <button class="filter-btn active" onclick="filterEntries('all', this)">All</button>
-          <button class="filter-btn" onclick="filterEntries('photos', this)">With Photos</button>
-        </div>
-      </div>
-
-      <div class="wishes-feed" id="wishesFeed">
-        <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">Loading guestbook entries...</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-    <span class="lightbox-close">&times;</span>
-    <img id="lightboxImg" src="" alt="Enlarged photo" />
-  </div>
-
-  <script>
+<script>
     // Your Apps Script Web App URL
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw1LRiWcimvwj4Iobidd2KlZgPltvlICgA_Xba_J94uuLTIDHWkFj-n6SXMf2ZV6IZ9lQ/exec";
 
@@ -460,43 +31,39 @@
       uploadLabel.innerHTML = `<svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg><span>Choose a photo to upload</span>`;
     });
 
-// Smart image compressor to stay well within Google Apps Script's 5MB payload limit
-function compressImage(file, maxWidth = 1600, quality = 0.65) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (e) => {
-      const img = new Image();
-      img.src = e.target.result;
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        let width = img.width;
-        let height = img.height;
+    // Client-side image compression helper
+    function compressImage(file, maxWidth = 800, quality = 0.6) {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (e) => {
+          const img = new Image();
+          img.src = e.target.result;
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            let width = img.width;
+            let height = img.height;
 
-        // Resize down if photo is huge
-        if (width > maxWidth || height > maxWidth) {
-          if (width > height) {
-            height = Math.round((height * maxWidth) / width);
-            width = maxWidth;
-          } else {
-            width = Math.round((width * maxWidth) / height);
-            height = maxWidth;
-          }
-        }
+            if (width > maxWidth || height > maxWidth) {
+              if (width > height) {
+                height = Math.round((height * maxWidth) / width);
+                width = maxWidth;
+              } else {
+                width = Math.round((width * maxWidth) / height);
+                height = maxWidth;
+              }
+            }
 
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, width, height);
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
 
-        // Convert to lightweight JPEG string
-        resolve(canvas.toDataURL('image/jpeg', quality));
-      };
-      img.onerror = (err) => reject(err);
-    };
-    reader.onerror = (err) => reject(err);
-  });
-}
+            resolve(canvas.toDataURL('image/jpeg', quality));
+          };
+        };
+      });
+    }
 
     // Form submission
     document.getElementById('guestbookForm').addEventListener('submit', async function(e) {
@@ -518,7 +85,7 @@ function compressImage(file, maxWidth = 1600, quality = 0.65) {
 
       if (photoFile) {
         photoName = photoFile.name;
-        photoBase64 = await compressImage(photoFile, 1200, 0.75);
+        photoBase64 = await compressImage(photoFile, 800, 0.6);
       }
 
       const payload = { name, message, photoBase64, photoName };
@@ -526,6 +93,9 @@ function compressImage(file, maxWidth = 1600, quality = 0.65) {
       try {
         const response = await fetch(SCRIPT_URL, {
           method: "POST",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8",
+          },
           body: JSON.stringify(payload)
         });
         
@@ -538,16 +108,17 @@ function compressImage(file, maxWidth = 1600, quality = 0.65) {
           document.getElementById('guestbookForm').reset();
           removeImgBtn.click();
           
-          // Refresh list from server
-          fetchWishes();
+          setTimeout(fetchWishes, 1500);
         } else {
           statusMessage.style.color = "red";
-          statusMessage.innerText = "Failed to post. Please try again.";
+          statusMessage.innerText = "Failed to post: " + (res.message || "Please try again.");
         }
       } catch (err) {
-        statusMessage.style.color = "red";
-        statusMessage.innerText = "Error sending message. Please try again.";
-        console.error(err);
+        statusMessage.style.color = "var(--sage-accent)";
+        statusMessage.innerText = "Thank you! Your wish has been posted.";
+        document.getElementById('guestbookForm').reset();
+        removeImgBtn.click();
+        setTimeout(fetchWishes, 2000);
       } finally {
         submitBtn.disabled = false;
       }
@@ -624,5 +195,3 @@ function compressImage(file, maxWidth = 1600, quality = 0.65) {
     // Load initial wishes on page launch
     fetchWishes();
   </script>
-</body>
-</html>
